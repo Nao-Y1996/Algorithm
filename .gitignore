@@ -3,3 +3,5 @@
 SOM/csv
 SOM/fig
 ReferenceCode/
+.python-version
+pca2.py

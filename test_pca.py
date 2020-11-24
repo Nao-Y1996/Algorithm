@@ -17,7 +17,6 @@ class TestPca(unittest.TestCase):
   def test_calc_variance(self):
     variances = [variance(self.pca.data[:,i]) for i in range(self.pca.dimension)]
     test_variances = np.sum((self.pca.data**2)/(self.pca.n-1), axis=0)
-    # print((variances - test_variances))
     self.assertEqual(True, ((variances - test_variances) < 0.0000001).all())
 
   # 分散共分散行列のテスト
@@ -30,9 +29,9 @@ class TestPca(unittest.TestCase):
   # 主成分ベクトルのテスト
   def test_get_components(self):
       cvm = self.pca.get_Covariance_Matrix()
-      components = self.pca.get_components(cvm)
+      eigenvalue, components = self.pca.get_components(cvm)
       test_components = self.test_pca.components_
-      self.assertEqual(True, ((abs(components) - abs(test_components)) < 0.0000001).all())
+      self.assertEqual(True, ((abs(components.T) - abs(test_components)) < 0.0000001).all())
 
 if __name__ == '__main__':
     unittest.main()

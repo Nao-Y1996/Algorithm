@@ -55,7 +55,7 @@ class my_PCA():
                     cvm[row][col] = cvm[col][row]
         return cvm
     # 固有値、固有ベクトルの計算
-    def get_components(self, cvm):
+    def solve_eigenvalue_problem(self, cvm):
         """
         Arg:
           np.array: Covariance Matrix
@@ -71,7 +71,7 @@ class my_PCA():
     def fit(self):
         # 分散共分散行列を求めて、固有値、固有ベクトルを求める
         cvm = self.get_Covariance_Matrix()
-        self.eigenvalue, self.components = self.get_components(cvm)
+        self.eigenvalue, self.components = self.solve_eigenvalue_problem(cvm)
         # 寄与率の取得
         self.explained_variance_ratio = self.eigenvalue/sum(self.eigenvalue)
     # データの線形写像(次元削減)

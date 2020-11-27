@@ -16,19 +16,7 @@ class my_PCA():
         self.components = None  # 固有ベクトル(主成分ベクトル)
         self.explained_variance_ratio = None  # 寄与率
         # データの中心化
-        self.data = data - self.average(data)
-    # 各次元の平均の計算
-    def average(self, data):
-        """
-        Arg:
-          list: 2 dimensional array
-        return:
-          np.array: list of Average per column
-        """
-        averages = []
-        for dim in range(np.shape(data)[1]):
-            averages.append(np.average(data[:, dim]))
-        return np.array(averages)
+        self.data = data - np.mean(data, axis=0)
     # 分散の計算
     def calc_variance(self, data1, data2):
         # 中心化しているので平均=0
@@ -71,7 +59,7 @@ class my_PCA():
     def fit(self):
         # 分散共分散行列を求めて、固有値、固有ベクトルを求める
         cvm = self.get_Covariance_Matrix()
-        self.eigenvalue, self.components = self.solve_eigenvalue_problem(cvm)
+        self.eigenvalue, self.components = self.solve_eigenvalue_problem(cvm) # (固有値は既に大きさ順に並べられている)
         # 寄与率の取得
         self.explained_variance_ratio = self.eigenvalue/sum(self.eigenvalue)
     # データの線形写像(次元削減)

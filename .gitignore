@@ -5,3 +5,5 @@ SOM/fig
 ReferenceCode/
 .python-version
 pca2.py
+ICA.ipynb
+.ipynb_checkpoints

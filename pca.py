@@ -17,10 +17,11 @@ class my_PCA():
         self.explained_variance_ratio = None  # 寄与率
         # データの中心化
         self.data = data - np.mean(data, axis=0)
+
     # 分散の計算
     def calc_variance(self, data1, data2):
         # 中心化しているので平均=0
-        return np.sum(((data1-0) * (data2-0))/(self.n - 1), axis=0)
+        return np.sum((data1-0) * (data2-0), axis=0) / (self.n - 1)
     # 分散共分散行列
     def get_Covariance_Matrix(self):
         """

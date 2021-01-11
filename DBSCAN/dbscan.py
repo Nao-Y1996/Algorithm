@@ -33,25 +33,26 @@ def cluster_plots(data, colors='gray', title1='Dataset 1'):  # グラフ作成
     ax1 = fig.add_subplot(111)
     ax1.set_title(title1, fontsize=14)
     ax1.scatter(data[:, 0], data[:, 1], s=8, lw=0, c=colors)
-    fig.savefig('test.png')
+    # plt.xlim(0,1920)
+    # plt.ylim(0,1080)
+    fig.savefig('figure/test.png')
 
 
 # 塊のデータセット
 # dataset1 = datasets.make_blobs(
 #     n_samples=1000, random_state=10, centers=6, cluster_std=1.2)[0]
 # 月のデータセット
-# dataset2 = datasets.make_moons(n_samples=10000, noise=.05)[0]
+# data = datasets.make_moons(n_samples=1000, noise=.05)[0]
+
 with open('test.csv') as f:
     reader = csv.reader(f)
     l = [row for row in reader]
 l = l[1::]
 data = np.array([[int(v) for v in row] for row in l])
+data = np.delete(data, [2, 5, 8, 11, 14, 17, 20,
+                        23, 26, 29, 32, 35, 38, 41, 44], 1)
 
-# data = data[:,0:2]
-# data = np.delete(data, [2, 5, 8, 11, 14, 17, 20,
-#                         23, 26, 29, 32, 35, 38, 41, 44], 1)
-# print(data[0:10,:])
-print(np.shape(data))
+print(f'データ形状：{np.shape(data)}')
 dbscan = DBSCAN(data, eps=130, min_samples=30)
 dbscan.calc()
 print(dbscan.dbscan_data[0:10])
